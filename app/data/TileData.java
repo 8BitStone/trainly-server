@@ -16,10 +16,10 @@ public class TileData {
     }
 
     public TileData from(Tile tile){
-        card = tile.cardId;
-        x = tile.x;
-        y = tile.y;
-        rotation = tile.rotation;
+        card = tile.getCardId();
+        x = tile.getX();
+        y = tile.getY();
+        rotation = tile.getRotation();
         return this;
     }
 }

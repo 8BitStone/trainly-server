@@ -9,10 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Constraints.Validate
 public class PlayData implements Constraints.Validatable<List<ValidationError>> {
+    @Constraints.Required
     public Integer card;
+    @Constraints.Required
     public Integer x;
+    @Constraints.Required
     public Integer y;
+    @Constraints.Required
     public Integer rotation;
 
     @Override
@@ -25,37 +30,24 @@ public class PlayData implements Constraints.Validatable<List<ValidationError>> 
     }
 
     private Optional<ValidationError> validateCard(){
-        if(card == null){
-            return Optional.of(new ValidationError("card", "card is empty"));
-        }
-        if(Card.allCards.stream().anyMatch(c -> c.id == card)){
+        if(Card.allCards.stream().noneMatch(c -> c.id == card)){
             return Optional.of(new ValidationError("card", "card does not exist"));
         }
         return Optional.empty();
     }
 
     private Optional<ValidationError> validatePosition(){
-        if(x == null){
-            return Optional.of(new ValidationError("x", "x is empty"));
-        }
-        if(y == null){
-            return Optional.of(new ValidationError("y", "y is empty"));
-        }
         return Optional.empty();
     }
 
     private Optional<ValidationError> validateRotation(){
-        if(rotation == null){
-            return Optional.of(new ValidationError("rotation", "rotation is empty"));
-        }
         return Optional.empty();
     }
 
-    public void saveToModel(Tile model){
-        model.cardId = card;
-        model.x = x;
-        model.y = y;
-        model.rotation = rotation;
-        model.save();
+    public void updateToModel(Tile model){
+        model.setCardId(card);
+        model.setX(x);
+        model.setY(y);
+        model.setRotation(rotation);
     }
 }

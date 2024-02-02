@@ -15,6 +15,10 @@ public class Card extends Model {
             new Card(
                     1,
                     Arrays.asList(Joints.BOTTOM, Joints.LEFT)
+            ),
+            new Card(
+                    2,
+                    Arrays.asList(Joints.TOP, Joints.BOTTOM, Joints.LEFT)
             )
     );
 

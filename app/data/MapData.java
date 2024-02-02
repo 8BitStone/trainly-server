@@ -19,10 +19,10 @@ public class MapData {
                 .map(t -> new TileData().from(t))
                 .collect(Collectors.toList());
 
-        minX = tileModels.stream().map(t -> t.x).min(Integer::compareTo).orElse(-2);
-        maxX = tileModels.stream().map(t -> t.x).max(Integer::compareTo).orElse(2);
-        minY = tileModels.stream().map(t -> t.y).min(Integer::compareTo).orElse(-2);
-        maxY = tileModels.stream().map(t -> t.y).max(Integer::compareTo).orElse(2);
+        minX = tileModels.stream().map(Tile::getX).min(Integer::compareTo).orElse(-2);
+        maxX = tileModels.stream().map(Tile::getX).max(Integer::compareTo).orElse(2);
+        minY = tileModels.stream().map(Tile::getY).min(Integer::compareTo).orElse(-2);
+        maxY = tileModels.stream().map(Tile::getY).max(Integer::compareTo).orElse(2);
         return this;
     }
 }

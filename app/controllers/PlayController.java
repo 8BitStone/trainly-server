@@ -32,7 +32,8 @@ public class PlayController extends Controller {
         final Tile tile = Tile.FIND.byCoords(data.x, data.y)
                 .orElseGet(Tile::new);
 
-        data.saveToModel(tile);
+        data.updateToModel(tile);
+        tile.save();
 
         final StateData state = new StateDataBuilder().build();
         return ok(Json.toJson(state));

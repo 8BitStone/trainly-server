@@ -1,12 +1,15 @@
 package controllers;
 
 import data.PlayData;
+import data.StateData;
 import models.Tile;
 import play.data.Form;
 import play.data.FormFactory;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import services.StateDataBuilder;
 
 import javax.inject.Inject;
 
@@ -19,6 +22,7 @@ public class PlayController extends Controller {
         final Form<PlayData> form = formFactory
                 .form(PlayData.class)
                 .bindFromRequest(request);
+
         if(form.hasErrors()){
             return badRequest();
         }
@@ -28,13 +32,10 @@ public class PlayController extends Controller {
         final Tile tile = Tile.FIND.byCoords(data.x, data.y)
                 .orElseGet(Tile::new);
 
-        tile.cardId = data.card;
-        tile.x = data.x;
-        tile.y = data.y;
-        tile.rotation = data.rotation;
-        tile.save();
+        data.saveToModel(tile);
 
-        return ok();
+        final StateData state = new StateDataBuilder().build();
+        return ok(Json.toJson(state));
     }
 
 }

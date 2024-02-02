@@ -6,22 +6,19 @@ import models.Tile;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class StateData {
 
-    public List<TileData> map;
+    public MapData map;
     public List<Integer> cards;
 
     public StateData() {
-        map = new ArrayList<>();
+        map = new MapData();
         cards = new ArrayList<>();
     }
 
     public StateData fillMap(Collection<Tile> tiles){
-        map = tiles.stream()
-                .map(t -> new TileData().from(t))
-                .collect(Collectors.toList());
+        map = new MapData().fillMap(tiles);
         return this;
     }
 

@@ -5,18 +5,18 @@ import models.Tile;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-
-import java.util.Collection;
+import services.StateDataBuilder;
 
 public class StateController extends Controller {
 
     public Result get(){
-
-        final Collection<Tile> tiles = Tile.FIND.all();
-
-        final StateData state = new StateData()
-                .fillMap(tiles)
-                .fillCards();
+        final StateData state = new StateDataBuilder().build();
         return ok(Json.toJson(state));
+    }
+
+    public Result clear(){
+        Tile.FIND.all()
+                .forEach(Tile::delete);
+        return redirect(routes.StateController.get());
     }
 }

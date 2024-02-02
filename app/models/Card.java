@@ -4,22 +4,35 @@ import io.ebean.Model;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "card")
 public class Card extends Model {
-    public static Collection<Card> allCards = Arrays.asList(new Card(1), new Card(2));
+    public static Collection<Card> allCards = Arrays.asList(
+            new Card(
+                    0,
+                    Arrays.asList(Joints.TOP, Joints.BOTTOM)
+            ),
+            new Card(
+                    1,
+                    Arrays.asList(Joints.BOTTOM, Joints.LEFT)
+            )
+    );
 
-    @Id
     public int id;
+
+    public List<Joints> joints;
 
     public Card(){}
 
-    public Card(int id) {
+    public Card(int id, List<Joints> joints) {
         this.id = id;
+        this.joints = joints;
+    }
+
+    public enum Joints{
+        TOP,
+        RIGHT,
+        BOTTOM,
+        LEFT
     }
 }

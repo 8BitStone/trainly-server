@@ -22,4 +22,10 @@ public class Tile extends Model {
     public static final TileFinder FIND = new TileFinder();
 
     public Tile() {}
+
+
+
+    private Card getCard(){
+        return Card.allCards.stream().filter(c -> c.id == cardId).findFirst().get();
+    }
 }

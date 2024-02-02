@@ -1,6 +1,8 @@
 
 GET     /                           controllers.HomeController.index()
 
+GET     /clear                      controllers.StateController.clear()
+
 GET     /state                      controllers.StateController.get()
 
 +nocsrf
